@@ -1,64 +1,44 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-
-const Header = (props) => {
+/*const Button = (props) => {
   return (
-    <div>
-      <h1>Course Name is {props.course}</h1>
-    </div>
+    <button onClick={props.handleClick}>
+      {props.text}
+    </button>
   )
-}
+}*/
 
-const Total = (props) => {
-  return (
-    <div>
-      <p>There are {props.parts[0].exercises + props.parts[1].exercises + props.parts[2].exercises} number of exercises</p>
-    </div>
-  )
-}
+const Button = ({handleClick, text}) => <button onClick={handleClick}>{text}</button>
 
-const Content = (props) => {
+/*const Display=(props) => {
+  console.log(props.counter)
   return (
-    <div>
-      <Part name={props.parts[0].name} num={props.parts[0].exercises}/>
-      <Part name={props.parts[1].name} num={props.parts[1].exercises}/>
-      <Part name={props.parts[2].name} num={props.parts[2].exercises}/>
-    </div>
+    <div>{props.counter}</div>
   )
-}
+}*/
 
-const Part = (props) => {
-  return (
-    <div>
-      <p>Course {props.name} features {props.num} exercises</p>
-    </div>
-  )
-}
+const Display = ({counter,text}) => <div>{text} {counter}</div>
 
 const App = () => {
-  const course = {
-    name: 'Half Stack application development',
-    parts: [
-      {
-        name: 'Fundamentals of React',
-        exercises: 10
-      },
-      {
-        name: 'Using props to pass data',
-        exercises: 7
-      },
-      {
-        name: 'State of a component',
-        exercises: 14
-      }
-    ]
-  }
+  // save clicks of each button to its own state
+  const [good, setGood] = useState(0)
+  const [neutral, setNeutral] = useState(0)
+  const [bad, setBad] = useState(0)
+
+  const clickGood = () => setGood(good+1)
+  const clickNeutral = () => setNeutral(neutral+1)
+  const clickBad = () => setBad(bad+1)
 
   return (
     <div>
-      <Header course={course.name}/>
-      <Content parts={course.parts}/>
-      <Total parts={course.parts}/>
+      Give Feedback
+      <Button handleClick={clickGood} text='Good' />
+      <Button handleClick={clickNeutral} text='Neutral' />
+      <Button handleClick={clickBad} text='Bad' />
+      Statistics
+      <Display counter={good} text='good'/>
+      <Display counter={neutral} text='neutral' />
+      <Display counter={bad} text='bad'/>
     </div>
   )
 }
