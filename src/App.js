@@ -8,7 +8,9 @@ import React, { useState } from 'react'
   )
 }*/
 
-const Button = ({handleClick, text}) => <button onClick={handleClick}>{text}</button>
+const Button = ({handleClick, text}) => <div><button onClick={handleClick}>{text}</button></div>
+
+const Statistic = ({text, value}) => <div>{text} {value}</div>
 
 const Statistics = ({good, bad, neutral}) => {
   if((good === 0) && (bad === 0) && (neutral === 0)) {
@@ -25,12 +27,12 @@ const Statistics = ({good, bad, neutral}) => {
     let pos = good/total
     return(
       <div>
-        Good: {good}
-        Neutral: {neutral}
-        Bad: {bad}
-        Total count is {total}
-        Average: {avg}
-        Positive: {pos}
+        <Statistic text="Good" value={good} />
+        <Statistic text="Neutral" value={neutral} />
+        <Statistic text="Bad" value={bad} />
+        <Statistic text="Total" value={total} />
+        <Statistic text="Average" value={avg} />
+        <Statistic text="Positive" value={pos} />
       </div>
     )
   }
