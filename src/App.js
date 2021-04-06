@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const Button = ({text, genRandom}) => <div><button onClick={genRandom}>{text}</button></div>
+const Button = ({text, onClick}) => <div><button onClick={onClick}>{text}</button></div>
 
 const App = () => {
   const anecdotes = [
@@ -13,16 +13,29 @@ const App = () => {
   ]
    
   const [selected, setSelected] = useState(0)
+  const [votes, setVote] = useState(Array(anecdotes.length).fill(0))
+
+  console.log(votes)
 
   const genRandom = () => {
     let num = Math.floor(Math.random()*anecdotes.length)
     setSelected(num)
   }
 
+  const incrementVote = () => {
+    console.log(selected)
+    const copy = [...votes]
+    copy[selected] += 1
+    console.log(copy)
+    setVote(copy)
+  } 
+
+
   return (
     <div>
-      {anecdotes[selected]}
-      <Button genRandom={genRandom} text="Next Anecdote"/>
+      {anecdotes[selected]} has {votes[selected]} votes
+      <Button onClick={genRandom} text="Next Anecdote"/>
+      <Button onClick={incrementVote} text="Vote"/>
     </div>
   )
 }
